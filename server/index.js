@@ -357,11 +357,28 @@ function serveFile(res, filePath) {
 
 function requestUrl(req) {
   const host = req.headers.host || "localhost";
-  const proto = req.headers["x-forwarded-proto"] || "http";
-  let raw = req.url || "/";
-  if (!raw.startsWith("/api/") && Array.isArray(req.query?.path)) {
-    const query = raw.includes("?") ? raw.slice(raw.indexOf("?")) : "";
-    raw = `/api/v1/${req.query.path.map((part) => encodeURIComponent(part)).join("/")}${query}`;
+  const proto = String(req.headers["x-forwarded-proto"] || "http").split(",")[0].trim();
+  const raw = req.url || "/";
+  const pathname = raw.split("?")[0];
+  if (pathname.startsWith("/api/v1/") && pathname.length > "/api/v1/".length) {
+    return new URL(raw, `${proto}://${host}`);
+  }
+  const headerPath = ["x-forwarded-uri", "x-original-url", "x-invoke-path", "x-vercel-original-url"]
+    .map((name) => req.headers[name])
+    .flat()
+    .find((value) => typeof value === "string" && value.includes("/api/v1/"));
+  if (headerPath) {
+    const path = headerPath.startsWith("http") ? `${new URL(headerPath).pathname}${new URL(headerPath).search}` : headerPath;
+    return new URL(path.startsWith("/") ? path : `/${path}`, `${proto}://${host}`);
+  }
+  const route = req.query?.route ?? req.query?.path;
+  if (route) {
+    const parts = (Array.isArray(route) ? route : String(route).split("/")).filter(Boolean);
+    const search = new URL(raw, `${proto}://${host}`).searchParams;
+    search.delete("route");
+    search.delete("path");
+    const query = search.toString();
+    return new URL(`/api/v1/${parts.map((part) => encodeURIComponent(part)).join("/")}${query ? `?${query}` : ""}`, `${proto}://${host}`);
   }
   return new URL(raw, `${proto}://${host}`);
 }

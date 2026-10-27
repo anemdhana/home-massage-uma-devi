@@ -1,7 +1,7 @@
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { hashPassword } from "./auth.js";
+import { hashPassword, verifyPassword } from "./auth.js";
 
 const PACKAGES = [
   ["P1", "Package I – Swedish", JSON.stringify(["Head, face, and foot massage"]), 1500, 90, "individual", 1, 1],
@@ -203,6 +203,7 @@ export async function openDatabase(root) {
     const db = wrapLibsql(client);
     await db.exec(SCHEMA);
     await seed(db);
+    await ensurePassword(db);
     return db;
   }
   if (process.env.VERCEL) throw storageError("Set TURSO_DATABASE_URL so bookings are kept.");
@@ -214,7 +215,16 @@ export async function openDatabase(root) {
   const db = wrapSqlite(raw);
   await db.exec(SCHEMA);
   await seed(db);
+  await ensurePassword(db);
   return db;
+}
+
+async function ensurePassword(db) {
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) return;
+  const user = await db.get("SELECT passwordHash FROM users WHERE id = 'uma'");
+  if (!user || verifyPassword(password, user.passwordHash)) return;
+  await db.run("UPDATE users SET passwordHash = ? WHERE id = 'uma'", hashPassword(password));
 }
 
 async function seed(db) {

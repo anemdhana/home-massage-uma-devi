@@ -11,6 +11,7 @@
 
 html {
   background: var(--paper);
+  overflow-x: clip;
 }
 
 body {
@@ -59,13 +60,80 @@ a:hover {
 }
 
 .app-portrait {
-  width: 168px;
-  height: 168px;
+  width: min(112px, 18dvh);
+  height: min(112px, 18dvh);
   object-fit: cover;
   object-position: center 18%;
   border-radius: 50%;
   border: 1px solid var(--line);
   background: #fff;
+}
+
+@media (max-width: 959px) {
+  body.app-fit {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.app-fit .app-header,
+  body.app-fit .app-header-inner,
+  body.app-fit .app-header .uk-navbar {
+    height: 48px;
+  }
+
+  body.app-fit > .uk-section {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    padding: 8px 0;
+    overflow: hidden;
+  }
+
+  body.app-fit .uk-container {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  body.app-fit .uk-card {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    width: 100%;
+  }
+
+  body.app-fit .uk-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+    padding: 8px 12px;
+  }
+
+  body.app-fit .app-icon-row {
+    align-items: flex-start;
+  }
+
+  body.app-fit .app-icon-row .uk-icon {
+    margin-top: 1px;
+  }
+
+  body.app-fit .uk-list > li {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 0.92rem;
+    line-height: 1.3;
+  }
+
+  body.app-fit .uk-button {
+    margin-top: 8px;
+  }
 }
 
 .app-header .uk-navbar-nav > li > a {
@@ -261,6 +329,10 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+}
+
+.app-icon-row > :last-child {
+  min-width: 0;
 }
 
 .uk-icon svg [stroke="#000"] {
