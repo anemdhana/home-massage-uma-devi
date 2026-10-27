@@ -14,11 +14,13 @@ const pages = [
   ["uma.html", "desk/index.html"],
   ["hours.html", "desk/hours.html"],
   ["packages.html", "desk/packages.html"],
+  ["review.html", "review.html"],
+  ["uma-reviews.html", "desk/reviews.html"],
 ];
 
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
-for (const name of ["app.css", "icons.js", "ui.js", "home.js", "book.js", "uma.js", "hours.js", "packages.js"]) {
+for (const name of ["app.css", "icons.js", "ui.js", "home.js", "book.js", "uma.js", "hours.js", "packages.js", "review.js", "uma-reviews.js"]) {
   cpSync(path.join(site, name), path.join(out, name));
 }
 cpSync(path.join(site, "vendor"), path.join(out, "vendor"), { recursive: true });

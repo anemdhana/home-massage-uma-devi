@@ -91,9 +91,22 @@ const SCHEMA = `
       passwordHash TEXT NOT NULL,
       role TEXT NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS reviews (
+      id TEXT PRIMARY KEY,
+      bookingId TEXT NOT NULL UNIQUE,
+      packageId TEXT NOT NULL,
+      packageName TEXT NOT NULL,
+      rating INTEGER NOT NULL,
+      summary TEXT NOT NULL,
+      displayName TEXT NOT NULL,
+      visible INTEGER NOT NULL,
+      createdAt TEXT NOT NULL
+    );
     CREATE INDEX IF NOT EXISTS bookings_status_start ON bookings (status, startAt);
     CREATE INDEX IF NOT EXISTS bookings_range ON bookings (startAt, occupiedUntilAt);
     CREATE INDEX IF NOT EXISTS bookings_date ON bookings (date);
+    CREATE INDEX IF NOT EXISTS reviews_visible_created ON reviews (visible, createdAt);
+    CREATE INDEX IF NOT EXISTS reviews_package ON reviews (packageId, visible);
 `;
 
 function storageError(message) {

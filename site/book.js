@@ -4,6 +4,7 @@
   const state = {
     step: 0,
     packages: [],
+    averages: new Map(),
     packageId: new URLSearchParams(location.search).get("package"),
     audience: "individual",
     days: [],
@@ -70,9 +71,11 @@
       const host = document.getElementById("choice-" + audience);
       host.innerHTML = state.packages.filter((pack) => pack.audience === audience && pack.bookable).map((pack) => {
         const includes = pack.includes[0] ? `<span class="uk-text-small uk-display-block">${U.escapeHtml(pack.includes[0])}</span>` : "";
+        const score = state.averages.get(pack.id);
+        const rating = score ? `<span class="uk-display-block uk-margin-small-top">${U.ratingLine(score.average, score.count)}</span>` : "";
         return `<button class="app-choice ${pack.id === state.packageId ? "is-selected" : ""}" type="button" data-id="${pack.id}">
           <span class="app-icon-row"><span uk-icon="icon: ${U.packageIcon(pack.id)}; ratio: 0.85"></span><span class="uk-text-bold">${U.escapeHtml(pack.name)}</span></span>
-          ${includes}
+          ${includes}${rating}
           <span class="uk-flex uk-flex-between uk-margin-small-top"><span class="uk-text-meta">${U.durationLabel(pack.durationMinutes)}</span><span class="uk-text-bold">${U.money(pack.priceInr)}</span></span>
         </button>`;
       }).join("");
@@ -357,8 +360,12 @@
     }
   });
 
-  U.api("/packages").then((res) => {
+  Promise.all([
+    U.api("/packages"),
+    U.api("/reviews").catch(() => ({ data: { averages: [] } })),
+  ]).then(([res, reviews]) => {
     state.packages = res.data;
+    state.averages = new Map((reviews.data.averages || []).map((row) => [row.packageId, row]));
     const query = state.packages.find((pack) => pack.id === state.packageId && pack.bookable);
     if (!query) state.packageId = null;
     else state.audience = query.audience;

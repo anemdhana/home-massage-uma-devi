@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f5">
+  <title>Share a review · Uma Devi</title>
+  <link rel="stylesheet" href="/vendor/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="uk-container app-header-inner">
+      <nav class="uk-navbar" uk-navbar="mode: click">
+        <div class="uk-navbar-left"><a class="app-brand" href="/">Uma Devi</a></div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav uk-visible@m">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#reviews">Reviews</a></li>
+          </ul>
+          <a class="uk-button uk-button-primary uk-button-small uk-visible@m uk-margin-small-left" href="/book">Book</a>
+          <a class="uk-navbar-toggle uk-hidden@m" href="#nav" uk-toggle aria-label="Menu"><span uk-navbar-toggle-icon></span></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div id="nav" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close aria-label="Close"></button>
+      <ul class="uk-nav uk-nav-primary uk-margin-medium-top">
+        <li><a href="/"><span uk-icon="icon: home; ratio: 0.9"></span> Home</a></li>
+        <li class="uk-active"><a href="/review"><span uk-icon="icon: star; ratio: 0.9"></span> Share a review</a></li>
+        <li><a href="/book"><span uk-icon="icon: calendar; ratio: 0.9"></span> Book</a></li>
+      </ul>
+    </div>
+  </div>
+  <section class="uk-section uk-section-small">
+    <div class="uk-container app-column app-narrow">
+      <h1 class="uk-h3 uk-margin-small-bottom">Share a review</h1>
+      <div class="uk-alert uk-alert-primary app-alert" uk-alert>
+        <p class="app-alert-line"><span uk-icon="icon: info; ratio: 0.85"></span><span>Rate the package from your visit. New customers see the note on the home page.</span></p>
+      </div>
+      <div id="page-alert"></div>
+      <form class="uk-form-stacked app-form uk-card uk-card-default uk-card-body uk-padding-small" id="find-form">
+        <div class="uk-margin-small">
+          <label class="uk-form-label" for="reference">Booking reference</label>
+          <input class="uk-input" id="reference" autocomplete="off" placeholder="UD----">
+        </div>
+        <div class="uk-margin-small">
+          <label class="uk-form-label" for="mobile">Mobile used for the booking</label>
+          <input class="uk-input" id="mobile" inputmode="numeric" autocomplete="tel" placeholder="10 digits">
+        </div>
+        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-top" type="submit">Find the visit</button>
+      </form>
+      <form class="uk-form-stacked app-form uk-card uk-card-default uk-card-body uk-padding-small uk-margin-small-top" id="write-form" hidden>
+        <p class="uk-text-bold uk-margin-remove" id="visit-name"></p>
+        <p class="uk-text-meta uk-margin-remove-top" id="visit-when"></p>
+        <div class="uk-margin-small">
+          <span class="uk-form-label">Rating</span>
+          <div class="app-star-pick uk-margin-small-top" id="stars" role="radiogroup" aria-label="Rating out of 5"></div>
+        </div>
+        <div class="uk-margin-small">
+          <label class="uk-form-label" for="summary">Feedback</label>
+          <textarea class="uk-textarea" id="summary" rows="3" maxlength="240" placeholder="A short note about the visit"></textarea>
+        </div>
+        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-top" id="save" type="submit">Share review</button>
+      </form>
+    </div>
+  </section>
+  <script src="/vendor/uikit/js/uikit.min.js"></script>
+  <script src="/vendor/uikit/js/uikit-icons.min.js"></script>
+  <script src="/ui.js"></script>
+  <script src="/review.js"></script>
+</body>
+</html>

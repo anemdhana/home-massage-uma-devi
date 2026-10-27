@@ -19,6 +19,7 @@
           <ul class="uk-navbar-nav uk-visible@m">
             <li class="uk-active"><a href="/">Home</a></li>
             <li><a href="#services">Services</a></li>
+            <li><a href="#reviews">Reviews</a></li>
           </ul>
           <a class="uk-button uk-button-primary uk-button-small uk-visible@m uk-margin-small-left" href="/book">Book</a>
           <a class="uk-navbar-toggle uk-hidden@m" href="#nav" uk-toggle aria-label="Menu">
@@ -34,6 +35,7 @@
       <ul class="uk-nav uk-nav-primary uk-margin-medium-top">
         <li class="uk-active"><a href="/"><span uk-icon="icon: home; ratio: 0.9"></span> Home</a></li>
         <li><a href="#services"><span uk-icon="icon: list; ratio: 0.9"></span> Services</a></li>
+        <li><a href="#reviews"><span uk-icon="icon: star; ratio: 0.9"></span> Reviews</a></li>
         <li><a href="/book"><span uk-icon="icon: calendar; ratio: 0.9"></span> Book</a></li>
       </ul>
     </div>
@@ -62,6 +64,17 @@
       <div class="uk-grid uk-grid-small uk-child-width-1-1 uk-child-width-1-2@m" id="couple-cards" uk-grid></div>
       <p class="uk-text-small uk-margin-small-top uk-margin-remove-bottom" id="enquire-note"></p>
       <a class="uk-button uk-button-text uk-margin-small-top" id="enquire-link" href="https://wa.me/919959923543"><span uk-icon="icon: whatsapp; ratio: 0.9"></span> Enquire on WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="uk-section uk-section-small uk-padding-remove-top" id="reviews">
+    <div class="uk-container">
+      <h2 class="uk-h3 uk-margin-small-bottom">Reviews</h2>
+      <div id="reviews-empty" class="uk-alert uk-alert-primary app-alert" uk-alert>
+        <p class="app-alert-line"><span uk-icon="icon: info; ratio: 0.85"></span><span>Ratings appear here after a visit.</span></p>
+      </div>
+      <div class="app-reviews" id="review-list"></div>
+      <a class="uk-button uk-button-text uk-margin-small-top" href="/review"><span uk-icon="icon: star; ratio: 0.85"></span> Share a review</a>
     </div>
   </section>
 

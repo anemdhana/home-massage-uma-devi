@@ -595,6 +595,56 @@ a:hover {
   font-size: 0.8rem;
 }
 
+.app-booking.is-static {
+  cursor: default;
+}
+
+.app-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  color: #e4d5d0;
+}
+
+.app-stars .is-on {
+  color: var(--accent);
+}
+
+.app-star-pick {
+  display: flex;
+  gap: 6px;
+}
+
+.app-star-pick button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: #e4d5d0;
+  cursor: pointer;
+}
+
+.app-star-pick button.is-on {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: #fbf4f5;
+}
+
+.app-reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.app-review {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .uk-animation-fade,
   .uk-animation-slide-bottom-small,

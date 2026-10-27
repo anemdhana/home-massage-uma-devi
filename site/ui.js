@@ -86,6 +86,20 @@
     return { P1: "lotus", P2: "user", P3: "star", P4: "lifesaver", C1: "users", C2: "users" }[id] || "heart";
   }
 
+  function stars(rating) {
+    const n = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
+    const icons = [1, 2, 3, 4, 5].map((i) =>
+      `<span class="${i <= n ? "is-on" : ""}" uk-icon="icon: star; ratio: 0.72"></span>`
+    ).join("");
+    return `<span class="app-stars" aria-label="${n} out of 5">${icons}</span>`;
+  }
+
+  function ratingLine(average, count) {
+    if (!count) return "";
+    const word = count === 1 ? "review" : "reviews";
+    return `<span class="uk-text-meta app-icon-row">${stars(average)} ${average} · ${count} ${word}</span>`;
+  }
+
   function notify(message) {
     if (window.UIkit) UIkit.notification({ message, status: "primary", pos: "top-center", timeout: 2200 });
   }
@@ -102,6 +116,8 @@
     addDays,
     mondayOf,
     packageIcon,
+    stars,
+    ratingLine,
     notify,
   };
 })();

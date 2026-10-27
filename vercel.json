@@ -6,6 +6,8 @@
     { "source": "/uma/login", "destination": "/desk/login.html" },
     { "source": "/uma/hours", "destination": "/desk/hours.html" },
     { "source": "/uma/packages", "destination": "/desk/packages.html" },
+    { "source": "/uma/reviews", "destination": "/desk/reviews.html" },
+    { "source": "/review", "destination": "/review.html" },
     { "source": "/uma", "destination": "/desk/index.html" }
   ]
 }

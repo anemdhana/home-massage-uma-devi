@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { clearSessionCookie, readSession, sessionCookie, signSession, verifyPassword } from "./auth.js";
 import { openDatabase } from "./db.js";
+import { createReview, listAdminReviews, listReviews, reviewCheck, setReviewVisible } from "./reviews.js";
 import { HttpError, addDays, availability, bookingJson, changeStatus, holdBooking, todayYmd, toInstant } from "./slots.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -27,9 +28,11 @@ const pages = {
   "/book": "book.html",
   "/book/done": "done.html",
   "/uma/login": "login.html",
+  "/review": "review.html",
   "/uma": "uma.html",
   "/uma/hours": "hours.html",
   "/uma/packages": "packages.html",
+  "/uma/reviews": "uma-reviews.html",
 };
 
 const types = {
@@ -217,6 +220,13 @@ async function handleApi(req, res, url) {
     const body = await readBody(req);
     return ok(res, await holdBooking(db, body), 201);
   }
+  if (method === "GET" && route === "/reviews") return ok(res, await listReviews(db));
+  if (method === "GET" && route === "/reviews/check") {
+    return ok(res, await reviewCheck(db, url.searchParams.get("reference"), url.searchParams.get("mobile")));
+  }
+  if (method === "POST" && route === "/reviews") {
+    return ok(res, await createReview(db, await readBody(req)), 201);
+  }
   if (method === "POST" && route === "/auth/login") {
     const body = await readBody(req);
     const user = await db.get("SELECT * FROM users WHERE mobile = ?", String(body.mobile || "").trim());
@@ -292,6 +302,16 @@ async function handleApi(req, res, url) {
     await therapist(req);
     await db.run("DELETE FROM blocks WHERE id = ?", decodeURIComponent(blockMatch[1]));
     return ok(res, { ok: true });
+  }
+  if (method === "GET" && route === "/admin/reviews") {
+    await therapist(req);
+    return ok(res, await listAdminReviews(db));
+  }
+  const reviewMatch = route.match(/^\/admin\/reviews\/([^/]+)$/);
+  if (reviewMatch && method === "POST") {
+    await therapist(req);
+    const body = await readBody(req);
+    return ok(res, await setReviewVisible(db, decodeURIComponent(reviewMatch[1]), body.visible !== false));
   }
   const packageMatch = route.match(/^\/admin\/packages\/([^/]+)$/);
   if (packageMatch && method === "PUT") {
