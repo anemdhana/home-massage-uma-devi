@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f5">
+  <title>Book · Uma Devi</title>
+  <link rel="stylesheet" href="/vendor/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body class="app-has-dock">
+  <header class="app-header">
+    <div class="uk-container app-header-inner">
+      <nav class="uk-navbar" uk-navbar="mode: click">
+        <div class="uk-navbar-left"><a class="app-brand" href="/">Uma Devi</a></div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav uk-visible@m">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#services">Services</a></li>
+          </ul>
+          <a class="uk-button uk-button-primary uk-button-small uk-visible@m uk-margin-small-left" href="/book">Book</a>
+          <a class="uk-navbar-toggle uk-hidden@m" href="#nav" uk-toggle aria-label="Menu"><span uk-navbar-toggle-icon></span></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div id="nav" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close aria-label="Close"></button>
+      <ul class="uk-nav uk-nav-primary uk-margin-medium-top">
+        <li><a href="/"><span uk-icon="icon: home; ratio: 0.9"></span> Home</a></li>
+        <li><a href="/#services"><span uk-icon="icon: list; ratio: 0.9"></span> Services</a></li>
+        <li class="uk-active"><a href="/book"><span uk-icon="icon: calendar; ratio: 0.9"></span> Book</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="uk-section uk-section-small">
+    <div class="uk-container app-column app-narrow">
+      <div class="app-stepbar">
+        <button class="uk-button uk-button-text uk-invisible" id="step-back" type="button"><span uk-icon="icon: chevron-left; ratio: 0.9"></span> Back</button>
+        <p class="uk-text-small uk-text-center uk-margin-remove" id="step-line">Step 1 of 5 · Package</p>
+        <span aria-hidden="true"></span>
+      </div>
+      <progress class="uk-progress uk-margin-small-bottom" id="step-progress" value="1" max="5" aria-label="Step 1 of 5"></progress>
+      <div id="summary" class="uk-alert uk-alert-primary app-summary" hidden></div>
+      <div id="step-alert"></div>
+      <div class="uk-card uk-card-default uk-card-body">
+        <ul class="uk-switcher" id="book-steps">
+          <li class="uk-active">
+            <ul class="uk-subnav uk-subnav-pill uk-margin-remove-top uk-margin-small-bottom">
+              <li class="uk-active"><a href="#" data-audience="individual">Individual</a></li>
+              <li><a href="#" data-audience="couple">Couple</a></li>
+            </ul>
+            <div id="choice-individual"></div>
+            <div id="choice-couple" hidden></div>
+          </li>
+          <li>
+            <div class="uk-flex uk-flex-middle uk-flex-between uk-margin-small-bottom">
+              <button class="uk-button uk-button-default uk-button-small" id="prev-range" type="button" aria-label="Previous"><span uk-icon="icon: chevron-left; ratio: 0.9"></span></button>
+              <span class="uk-text-small" id="range-label"></span>
+              <button class="uk-button uk-button-default uk-button-small" id="next-range" type="button" aria-label="Next"><span uk-icon="icon: chevron-right; ratio: 0.9"></span></button>
+            </div>
+            <div class="app-days app-dow uk-visible@m" id="dow" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+            <div class="app-days" id="day-grid"></div>
+          </li>
+          <li>
+            <div class="uk-grid uk-grid-small uk-child-width-1-3 uk-child-width-1-4@s" id="slot-grid" uk-grid></div>
+            <p class="uk-text-meta uk-margin-remove" id="slot-empty" hidden>No time left on this day.</p>
+          </li>
+          <li>
+            <p class="app-hint"><span uk-icon="icon: info; ratio: 0.75"></span> Hyderabad address. Pay at the visit.</p>
+            <form class="uk-form-stacked app-form" id="visit-form" action="#" onsubmit="return false">
+              <div class="uk-grid uk-grid-small uk-child-width-1-2" uk-grid>
+                <div>
+                  <label class="uk-form-label" for="customer-name">Your name</label>
+                  <input class="uk-input" id="customer-name" autocomplete="name">
+                </div>
+                <div>
+                  <label class="uk-form-label" for="mobile">Mobile</label>
+                  <input class="uk-input" id="mobile" inputmode="numeric" autocomplete="tel" placeholder="10 digits">
+                </div>
+              </div>
+              <div class="uk-margin-small">
+                <span class="uk-form-label">WhatsApp</span>
+                <ul class="uk-subnav uk-subnav-pill uk-margin-small-top uk-margin-remove-bottom">
+                  <li class="uk-active"><a href="#" data-whatsapp="same">Same number</a></li>
+                  <li><a href="#" data-whatsapp="other">Different number</a></li>
+                </ul>
+              </div>
+              <div class="uk-margin-small" id="whatsapp-wrap" hidden>
+                <label class="uk-form-label" for="whatsapp-mobile">WhatsApp number</label>
+                <input class="uk-input" id="whatsapp-mobile" inputmode="numeric" placeholder="10 digits">
+              </div>
+              <div class="uk-grid uk-grid-small uk-child-width-1-2" uk-grid>
+                <div>
+                  <label class="uk-form-label" for="locality">Locality</label>
+                  <input class="uk-input" id="locality" placeholder="Madhapur">
+                </div>
+                <div>
+                  <label class="uk-form-label" for="landmark">Landmark</label>
+                  <input class="uk-input" id="landmark">
+                </div>
+              </div>
+              <div class="uk-margin-small" id="second-wrap" hidden>
+                <label class="uk-form-label" for="second-name">Other person’s name</label>
+                <input class="uk-input" id="second-name">
+              </div>
+              <div class="uk-margin-small">
+                <label class="uk-form-label" for="address">Address</label>
+                <textarea class="uk-textarea" id="address" rows="2" placeholder="Flat, street, Hyderabad"></textarea>
+              </div>
+              <div class="uk-margin-small uk-margin-remove-bottom">
+                <label class="uk-form-label" for="note">Note</label>
+                <textarea class="uk-textarea" id="note" rows="1" placeholder="Pain, pressure, or anything Uma should know"></textarea>
+              </div>
+            </form>
+          </li>
+          <li>
+            <div id="couple-note" class="uk-alert uk-alert-warning app-alert" hidden uk-alert>
+              <p class="app-alert-line"><span uk-icon="icon: warning; ratio: 0.85"></span><span>Uma confirms the work included in this couple package.</span></p>
+            </div>
+            <dl class="uk-description-list uk-description-list-divider app-dl">
+              <dt>Package</dt><dd id="review-package"></dd>
+              <dt>When</dt><dd id="review-when"></dd>
+              <dt>Where</dt><dd class="app-pre" id="review-where"></dd>
+              <dt>Who</dt><dd class="app-pre" id="review-who"></dd>
+              <dt>Mobile</dt><dd id="review-mobile"></dd>
+              <dt>Price</dt><dd id="review-price"></dd>
+              <dt>Pay</dt><dd>At the visit</dd>
+            </dl>
+          </li>
+        </ul>
+        <button class="uk-button uk-button-primary uk-margin-small-top uk-visible@m" id="card-next" type="button">Continue</button>
+      </div>
+    </div>
+  </section>
+  <div class="app-dock uk-hidden@m">
+    <button class="uk-button uk-button-primary uk-width-1-1" id="sticky-next" type="button">Continue</button>
+  </div>
+  <div id="hold" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+      <h2 class="uk-h3">Hold this time?</h2>
+      <p id="hold-line"></p>
+      <div id="hold-alert"></div>
+      <div class="uk-text-right">
+        <button class="uk-button uk-button-default uk-modal-close" type="button">Back</button>
+        <button class="uk-button uk-button-primary uk-margin-small-left" id="hold-yes" type="button">Hold this time</button>
+      </div>
+    </div>
+  </div>
+  <script src="/vendor/uikit/js/uikit.min.js"></script>
+  <script src="/vendor/uikit/js/uikit-icons.min.js"></script>
+  <script src="/icons.js"></script>
+  <script src="/ui.js"></script>
+  <script src="/book.js"></script>
+</body>
+</html>

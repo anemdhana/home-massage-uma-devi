@@ -1,0 +1,15 @@
+{
+  "name": "home-massage-uma-devi",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "node scripts/publish-site.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.15"
+  }
+}

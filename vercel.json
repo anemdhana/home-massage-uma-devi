@@ -1,0 +1,11 @@
+{
+  "regions": ["bom1"],
+  "rewrites": [
+    { "source": "/book", "destination": "/book.html" },
+    { "source": "/book/done", "destination": "/book/done.html" },
+    { "source": "/uma/login", "destination": "/desk/login.html" },
+    { "source": "/uma/hours", "destination": "/desk/hours.html" },
+    { "source": "/uma/packages", "destination": "/desk/packages.html" },
+    { "source": "/uma", "destination": "/desk/index.html" }
+  ]
+}

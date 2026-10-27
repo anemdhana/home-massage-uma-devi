@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f5">
+  <title>Bookings · Uma’s day</title>
+  <link rel="stylesheet" href="/vendor/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="uk-container app-header-inner">
+      <nav class="uk-navbar" uk-navbar="mode: click">
+        <div class="uk-navbar-left"><a class="app-brand" href="/uma">Uma Devi</a></div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav uk-visible@m">
+            <li class="uk-active"><a href="/uma"><span uk-icon="icon: list; ratio: 0.9"></span> Bookings</a></li>
+            <li><a href="/uma/hours"><span uk-icon="icon: clock; ratio: 0.9"></span> Hours</a></li>
+            <li><a href="/uma/packages"><span uk-icon="icon: tag; ratio: 0.9"></span> Packages</a></li>
+            <li><a href="/" id="sign-out"><span uk-icon="icon: sign-out; ratio: 0.9"></span> Sign out</a></li>
+          </ul>
+          <a class="uk-navbar-toggle uk-hidden@m" href="#nav" uk-toggle aria-label="Menu"><span uk-navbar-toggle-icon></span></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div id="nav" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close aria-label="Close"></button>
+      <ul class="uk-nav uk-nav-primary uk-margin-medium-top">
+        <li class="uk-active"><a href="/uma"><span uk-icon="icon: list; ratio: 0.9"></span> Bookings</a></li>
+        <li><a href="/uma/hours"><span uk-icon="icon: clock; ratio: 0.9"></span> Hours</a></li>
+        <li><a href="/uma/packages"><span uk-icon="icon: tag; ratio: 0.9"></span> Packages</a></li>
+        <li><a href="/" id="sign-out-menu"><span uk-icon="icon: sign-out; ratio: 0.9"></span> Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+  <section class="uk-section uk-section-small">
+    <div class="uk-container">
+      <h1 class="uk-h3 uk-margin-small-bottom">Bookings</h1>
+      <div class="uk-alert uk-alert-primary app-alert" uk-alert>
+        <p class="app-alert-line"><span uk-icon="icon: info; ratio: 0.85"></span><span>Held means the customer is waiting for you to confirm.</span></p>
+      </div>
+      <div id="list-alert"></div>
+      <ul class="uk-subnav uk-subnav-pill" id="views">
+        <li class="uk-active"><a href="#" data-view="today">Today</a></li>
+        <li><a href="#" data-view="upcoming">Upcoming</a></li>
+        <li><a href="#" data-view="past">Past</a></li>
+      </ul>
+      <div class="app-bookings uk-margin-small-top" id="rows"></div>
+      <div class="uk-placeholder uk-text-center" id="empty" hidden>Nothing on this list.</div>
+    </div>
+  </section>
+  <div id="visit" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" id="visit-body"></div>
+  </div>
+  <script src="/vendor/uikit/js/uikit.min.js"></script>
+  <script src="/vendor/uikit/js/uikit-icons.min.js"></script>
+  <script src="/ui.js"></script>
+  <script src="/uma.js"></script>
+</body>
+</html>

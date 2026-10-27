@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f5">
+  <title>Hours · Uma’s day</title>
+  <link rel="stylesheet" href="/vendor/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="uk-container app-header-inner">
+      <nav class="uk-navbar" uk-navbar="mode: click">
+        <div class="uk-navbar-left"><a class="app-brand" href="/uma">Uma Devi</a></div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav uk-visible@m">
+            <li><a href="/uma"><span uk-icon="icon: list; ratio: 0.9"></span> Bookings</a></li>
+            <li class="uk-active"><a href="/uma/hours"><span uk-icon="icon: clock; ratio: 0.9"></span> Hours</a></li>
+            <li><a href="/uma/packages"><span uk-icon="icon: tag; ratio: 0.9"></span> Packages</a></li>
+            <li><a href="/" id="sign-out"><span uk-icon="icon: sign-out; ratio: 0.9"></span> Sign out</a></li>
+          </ul>
+          <a class="uk-navbar-toggle uk-hidden@m" href="#nav" uk-toggle aria-label="Menu"><span uk-navbar-toggle-icon></span></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div id="nav" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close aria-label="Close"></button>
+      <ul class="uk-nav uk-nav-primary uk-margin-medium-top">
+        <li><a href="/uma"><span uk-icon="icon: list; ratio: 0.9"></span> Bookings</a></li>
+        <li class="uk-active"><a href="/uma/hours"><span uk-icon="icon: clock; ratio: 0.9"></span> Hours</a></li>
+        <li><a href="/uma/packages"><span uk-icon="icon: tag; ratio: 0.9"></span> Packages</a></li>
+        <li><a href="/" id="sign-out-menu"><span uk-icon="icon: sign-out; ratio: 0.9"></span> Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+  <section class="uk-section uk-section-small">
+    <div class="uk-container app-narrow">
+      <h1 class="uk-h3 uk-margin-remove-bottom">Hours</h1>
+      <div class="uk-alert uk-alert-primary app-alert uk-margin-small-top" uk-alert>
+        <p class="app-alert-line"><span uk-icon="icon: info; ratio: 0.85"></span><span>Customers only see starts inside these hours, with 45 minutes to travel between homes.</span></p>
+      </div>
+      <div id="hours-alert"></div>
+      <div id="week"></div>
+      <button class="uk-button uk-button-primary uk-button-small uk-margin-small-top" id="save-hours" type="button">Save hours</button>
+      <h2 class="uk-h4 uk-margin-small-top">Blocked time</h2>
+      <div id="block-alert"></div>
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-small uk-table-divider uk-table-responsive">
+          <thead><tr><th>Date</th><th>From</th><th>To</th><th>Note</th><th></th></tr></thead>
+          <tbody id="blocks"></tbody>
+        </table>
+      </div>
+      <div class="uk-placeholder uk-text-center" id="no-blocks" hidden>No blocked time in the next 21 days.</div>
+      <button class="uk-button uk-button-default uk-button-small uk-margin-small-top" type="button" uk-toggle="target: #add-block"><span uk-icon="icon: plus; ratio: 0.8"></span> Add</button>
+    </div>
+  </section>
+  <div id="add-block" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+      <h2 class="uk-h4">Block this time</h2>
+      <div id="add-alert"></div>
+      <form class="uk-form-stacked app-form" id="block-form">
+        <div class="uk-margin-small"><label class="uk-form-label" for="block-date">Date</label><input class="uk-input" id="block-date" type="date" required></div>
+        <div class="uk-grid uk-grid-small uk-child-width-1-2" uk-grid>
+          <div><label class="uk-form-label" for="block-from">From</label><select class="uk-select" id="block-from"></select></div>
+          <div><label class="uk-form-label" for="block-to">To</label><select class="uk-select" id="block-to"></select></div>
+        </div>
+        <div class="uk-margin-small"><label class="uk-form-label" for="block-note">Note</label><input class="uk-input" id="block-note"></div>
+        <div class="uk-text-right uk-margin-small-top">
+          <button class="uk-button uk-button-default uk-modal-close" type="button">Back</button>
+          <button class="uk-button uk-button-primary uk-margin-small-left" type="submit">Block this time</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="/vendor/uikit/js/uikit.min.js"></script>
+  <script src="/vendor/uikit/js/uikit-icons.min.js"></script>
+  <script src="/ui.js"></script>
+  <script src="/hours.js"></script>
+</body>
+</html>

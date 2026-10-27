@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f5">
+  <title>Uma Devi · Home Massage</title>
+  <link rel="stylesheet" href="/vendor/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="uk-container app-header-inner">
+      <nav class="uk-navbar" uk-navbar="mode: click">
+        <div class="uk-navbar-left">
+          <a class="app-brand" href="/">Uma Devi</a>
+        </div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav uk-visible@m">
+            <li class="uk-active"><a href="/">Home</a></li>
+            <li><a href="#services">Services</a></li>
+          </ul>
+          <a class="uk-button uk-button-primary uk-button-small uk-visible@m uk-margin-small-left" href="/book">Book</a>
+          <a class="uk-navbar-toggle uk-hidden@m" href="#nav" uk-toggle aria-label="Menu">
+            <span uk-navbar-toggle-icon></span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div id="nav" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close aria-label="Close"></button>
+      <ul class="uk-nav uk-nav-primary uk-margin-medium-top">
+        <li class="uk-active"><a href="/"><span uk-icon="icon: home; ratio: 0.9"></span> Home</a></li>
+        <li><a href="#services"><span uk-icon="icon: list; ratio: 0.9"></span> Services</a></li>
+        <li><a href="/book"><span uk-icon="icon: calendar; ratio: 0.9"></span> Book</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="uk-section uk-section-small">
+    <div class="uk-container">
+      <div id="page-alert"></div>
+      <h1 class="uk-h1 app-wordmark uk-margin-remove-bottom" id="practice-name">Home Massage Service</h1>
+      <p class="uk-text-lead uk-margin-small-top uk-margin-remove-bottom" id="practice-line">Relaxation delivered to your doorstep</p>
+      <p class="uk-text-meta uk-margin-small-top" id="practice-meta">Hyderabad</p>
+      <a class="uk-button uk-button-primary uk-button-small uk-margin-small-top" href="/book">Book</a>
+      <div class="uk-grid uk-grid-small uk-child-width-1-2 uk-child-width-1-4@m uk-margin-small-top uk-text-center" id="highlights" uk-grid></div>
+    </div>
+  </section>
+
+  <section class="uk-section uk-section-small uk-padding-remove-top" id="services">
+    <div class="uk-container">
+      <h2 class="uk-h3 uk-margin-small-bottom">Services</h2>
+      <p class="uk-text-meta uk-margin-remove-top">Individual</p>
+      <div class="uk-alert uk-alert-primary app-alert uk-margin-small-top" uk-alert>
+        <p class="app-alert-line"><span uk-icon="icon: info; ratio: 0.85"></span><span>Prices are per person. Pay when Uma arrives.</span></p>
+      </div>
+      <div class="uk-grid uk-grid-small uk-child-width-1-1 uk-child-width-1-2@m" id="individual-cards" uk-grid></div>
+      <p class="uk-text-meta uk-margin-small-top uk-margin-small-bottom">Couple</p>
+      <div class="uk-grid uk-grid-small uk-child-width-1-1 uk-child-width-1-2@m" id="couple-cards" uk-grid></div>
+      <p class="uk-text-small uk-margin-small-top uk-margin-remove-bottom" id="enquire-note"></p>
+      <a class="uk-button uk-button-text uk-margin-small-top" id="enquire-link" href="https://wa.me/919959923543"><span uk-icon="icon: whatsapp; ratio: 0.9"></span> Enquire on WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="uk-section uk-section-small uk-padding-remove-top">
+    <div class="uk-container">
+      <div class="uk-grid uk-grid-small uk-child-width-1-1 uk-child-width-1-2@m" uk-grid>
+        <div>
+          <h3 class="uk-h4">Techniques</h3>
+          <ul class="uk-list uk-list-divider app-list uk-margin-small-top" id="techniques"></ul>
+        </div>
+        <div>
+          <h3 class="uk-h4">Benefits</h3>
+          <ul class="uk-list uk-list-divider app-list uk-margin-small-top" id="benefits"></ul>
+        </div>
+      </div>
+      <div class="uk-flex uk-flex-wrap uk-flex-middle app-links uk-margin-small-top">
+        <a class="uk-button uk-button-text" id="phone-link" href="tel:+919959923543"><span uk-icon="icon: receiver; ratio: 0.9"></span> Phone</a>
+        <a class="uk-button uk-button-text" id="whatsapp-link" href="https://wa.me/919959923543"><span uk-icon="icon: whatsapp; ratio: 0.9"></span> WhatsApp</a>
+        <a class="uk-button uk-button-text" id="instagram-link" href="https://instagram.com/uma_devi1601"><span uk-icon="icon: instagram; ratio: 0.9"></span> Instagram</a>
+      </div>
+      <p class="uk-text-meta uk-margin-remove-top">Book your doorstep massage today!</p>
+    </div>
+  </section>
+
+  <script src="/vendor/uikit/js/uikit.min.js"></script>
+  <script src="/vendor/uikit/js/uikit-icons.min.js"></script>
+  <script src="/icons.js"></script>
+  <script src="/ui.js"></script>
+  <script src="/home.js"></script>
+</body>
+</html>
