@@ -1,6 +1,7 @@
 {
   "regions": ["bom1"],
   "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
     { "source": "/book", "destination": "/book.html" },
     { "source": "/book/done", "destination": "/book/done.html" },
     { "source": "/uma/login", "destination": "/desk/login.html" },

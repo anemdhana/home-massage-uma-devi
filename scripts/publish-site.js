@@ -8,6 +8,7 @@ const out = path.join(root, "public");
 
 const pages = [
   ["index.html", "index.html"],
+  ["about.html", "about.html"],
   ["book.html", "book.html"],
   ["done.html", "book/done.html"],
   ["login.html", "desk/login.html"],
@@ -24,6 +25,7 @@ for (const name of ["app.css", "icons.js", "ui.js", "home.js", "book.js", "uma.j
   cpSync(path.join(site, name), path.join(out, name));
 }
 cpSync(path.join(site, "vendor"), path.join(out, "vendor"), { recursive: true });
+cpSync(path.join(site, "uma-devi.png"), path.join(out, "uma-devi.png"));
 for (const [from, to] of pages) {
   const dest = path.join(out, to);
   mkdirSync(path.dirname(dest), { recursive: true });

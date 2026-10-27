@@ -25,6 +25,7 @@ function getDb() {
 
 const pages = {
   "/": "index.html",
+  "/about": "about.html",
   "/book": "book.html",
   "/book/done": "done.html",
   "/uma/login": "login.html",
