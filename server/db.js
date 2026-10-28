@@ -204,6 +204,7 @@ export async function openDatabase(root) {
     await db.exec(SCHEMA);
     await seed(db);
     await ensurePassword(db);
+    await ensureTravelGap(db);
     return db;
   }
   if (process.env.VERCEL) throw storageError("Set TURSO_DATABASE_URL so bookings are kept.");
@@ -216,7 +217,21 @@ export async function openDatabase(root) {
   await db.exec(SCHEMA);
   await seed(db);
   await ensurePassword(db);
+  await ensureTravelGap(db);
   return db;
+}
+
+async function ensureTravelGap(db) {
+  await db.run("UPDATE practice SET travelGapMinutes = 60 WHERE travelGapMinutes < 60");
+  const rows = await db.all(
+    "SELECT id, startAt, durationMinutes, occupiedUntilAt FROM bookings WHERE status IN ('HELD', 'CONFIRMED', 'COMPLETED')"
+  );
+  for (const row of rows) {
+    const until = new Date(new Date(row.startAt).getTime() + (row.durationMinutes + 60) * 60000).toISOString();
+    if (until > row.occupiedUntilAt) {
+      await db.run("UPDATE bookings SET occupiedUntilAt = ? WHERE id = ?", until, row.id);
+    }
+  }
 }
 
 async function ensurePassword(db) {
@@ -276,7 +291,7 @@ async function seed(db) {
     180,
     21,
     30,
-    45,
+    60,
       "INR"
     );
     for (const day of ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]) {

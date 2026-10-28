@@ -102,6 +102,36 @@
 
   const advanceInr = 200;
   const payee = "UMADEVI VADLAMANI";
+  const umaWhatsapp = "919959923543";
+
+  function messageToUma(saved) {
+    const advance = Math.min(advanceInr, saved.priceInr || advanceInr);
+    const who = saved.secondName ? saved.customerName + " and " + saved.secondName : saved.customerName;
+    const locality = saved.locality || "";
+    const address = saved.address
+      ? (locality && !saved.address.toLowerCase().includes(locality.toLowerCase()) ? saved.address + ", " + locality : saved.address)
+      : locality;
+    const lines = [
+      "Hello Uma Devi, I have paid the " + money(advance) + " advance. Please confirm this booking.",
+      "",
+      "Reference: " + saved.reference,
+      "Package: " + saved.packageName + (saved.priceInr ? " · " + money(saved.priceInr) : ""),
+      "When: " + dateLabel(saved.date) + ", " + clockLabel(saved.start) + " – " + clockLabel(saved.end),
+    ];
+    if (who) lines.push("Name: " + who);
+    if (saved.mobile) {
+      const digits = String(saved.mobile).replace(/\D/g, "");
+      lines.push("Mobile: " + (digits.length === 10 ? digits.slice(0, 5) + " " + digits.slice(5) : saved.mobile));
+    }
+    if (address) lines.push("Address: " + address);
+    if (saved.landmark) lines.push("Landmark: " + saved.landmark);
+    if (saved.note) lines.push("Note: " + saved.note);
+    return lines.join("\n");
+  }
+
+  function umaWhatsappLink(saved) {
+    return "https://wa.me/" + umaWhatsapp + "?text=" + encodeURIComponent(messageToUma(saved));
+  }
 
   function notify(message) {
     if (window.UIkit) UIkit.notification({ message, status: "primary", pos: "top-center", timeout: 2200 });
@@ -123,6 +153,9 @@
     ratingLine,
     advanceInr,
     payee,
+    umaWhatsapp,
+    messageToUma,
+    umaWhatsappLink,
     notify,
   };
 })();

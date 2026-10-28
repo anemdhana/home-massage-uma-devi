@@ -12,6 +12,7 @@
     start: null,
     cursor: null,
     wide: window.matchMedia("(min-width: 960px)").matches,
+    saved: null,
   };
 
   const alertHost = document.getElementById("step-alert");
@@ -274,8 +275,25 @@
       if (!validateVisit()) return;
       return show(4);
     }
+    if (state.saved) return;
     U.clearMessage(document.getElementById("hold-alert"));
     UIkit.modal("#hold").show();
+  }
+
+  function revealSend(saved) {
+    state.saved = saved;
+    const href = U.umaWhatsappLink(saved);
+    document.getElementById("send-hint").hidden = true;
+    document.getElementById("send-ref").textContent = saved.reference + " is held. Send it to Uma so she can confirm after the advance.";
+    document.getElementById("send-uma").hidden = false;
+    document.getElementById("send-uma-link").href = href;
+    document.getElementById("send-uma-dock").href = href;
+    document.getElementById("send-uma-dock").hidden = false;
+    document.getElementById("card-next").style.display = "none";
+    document.getElementById("sticky-next").style.display = "none";
+    document.getElementById("step-back").classList.add("uk-invisible");
+    document.getElementById("step-line").textContent = "Step 5 of 5 · Send to Uma";
+    if (window.UIkit) UIkit.update(document.getElementById("send-uma"));
   }
 
   document.getElementById("step-back").addEventListener("click", () => {
@@ -332,8 +350,19 @@
           whatsappMobile: value.whatsappSame ? undefined : value.whatsappMobile,
         },
       })).data;
-      sessionStorage.setItem("uma_devi_done", JSON.stringify(saved));
-      location.href = "/book/done";
+      const receipt = {
+        ...saved,
+        customerName: value.customerName,
+        secondName: pack.audience === "couple" ? value.secondName : "",
+        mobile: value.mobile,
+        address: value.address,
+        landmark: value.landmark,
+        note: value.note,
+      };
+      sessionStorage.setItem("uma_devi_done", JSON.stringify(receipt));
+      UIkit.modal("#hold").hide();
+      revealSend(receipt);
+      U.notify("Booking held. Send it to Uma on WhatsApp.");
     } catch (error) {
       button.disabled = false;
       button.textContent = "Hold this time";

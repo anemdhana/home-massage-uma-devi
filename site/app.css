@@ -48,10 +48,50 @@ a:hover {
 }
 
 .app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
   color: var(--ink);
   font-weight: 600;
   letter-spacing: -0.01em;
+  line-height: 1.05;
   text-decoration: none;
+}
+
+.app-logo {
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  flex: none;
+  position: relative;
+}
+
+.app-logo img {
+  position: absolute;
+  width: 225%;
+  height: auto;
+  left: -63%;
+  top: -12%;
+  max-width: none;
+}
+
+.app-brand-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.app-brand-name,
+.app-brand-caption {
+  white-space: nowrap;
+}
+
+.app-brand-caption {
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--muted);
 }
 
 .app-brand:hover {
@@ -81,7 +121,20 @@ a:hover {
   body.app-fit .app-header,
   body.app-fit .app-header-inner,
   body.app-fit .app-header .uk-navbar {
-    height: 48px;
+    height: 52px;
+  }
+
+  body.app-fit .app-logo {
+    width: 34px;
+    height: 34px;
+  }
+
+  body.app-fit .app-brand-name {
+    font-size: 0.86rem;
+  }
+
+  body.app-fit .app-brand-caption {
+    font-size: 0.62rem;
   }
 
   body.app-fit > .uk-section {
