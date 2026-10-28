@@ -27,14 +27,39 @@
     rows.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => openVisit(button.getAttribute("data-id"))));
   }
 
+  function confirmationText(row) {
+    const who = row.secondName ? row.customerName + " and " + row.secondName : row.customerName;
+    const address = row.address.toLowerCase().includes(String(row.locality).toLowerCase())
+      ? row.address
+      : row.address + ", " + row.locality;
+    const lines = [
+      "Your booking with Uma Devi is confirmed.",
+      "",
+      "Reference: " + row.reference,
+      "Package: " + row.packageName + " · " + U.money(row.priceInr),
+      "When: " + U.dateLabel(row.date) + ", " + U.clockLabel(row.start) + " – " + U.clockLabel(row.end),
+      "Name: " + who,
+      "Address: " + address,
+    ];
+    if (row.landmark) lines.push("Landmark: " + row.landmark);
+    lines.push("", "Please share your Google Maps location so I can reach you.");
+    return lines.join("\n");
+  }
+
+  function whatsappButton(row) {
+    const mobile = String(row.whatsappMobile || row.mobile || "").replace(/\D/g, "");
+    const href = "https://wa.me/91" + mobile + "?text=" + encodeURIComponent(confirmationText(row));
+    return `<a class="uk-button uk-button-primary uk-width-1-1" href="${U.escapeHtml(href)}" target="_blank" rel="noopener noreferrer"><span uk-icon="icon: whatsapp; ratio: 0.9"></span> Send confirmation on WhatsApp</a>`;
+  }
+
   async function openVisit(id) {
     const row = (await U.api("/admin/bookings/" + id)).data;
     const actions = [];
-    if (row.status === "HELD") actions.push(`<button class="uk-button uk-button-primary" type="button" data-status="CONFIRMED">Confirm</button>`);
+    if (row.status === "CONFIRMED") actions.push(whatsappButton(row));
+    if (row.status === "HELD") actions.push(`<button class="uk-button uk-button-primary uk-width-1-1" type="button" data-status="CONFIRMED">Confirm</button>`);
     if (row.status === "HELD" || row.status === "CONFIRMED") {
-      const primary = row.status === "CONFIRMED" ? "uk-button-primary" : "uk-button-default";
-      actions.push(`<button class="uk-button ${primary}" type="button" data-status="COMPLETED">Mark completed</button>`);
-      actions.push(`<button class="uk-button uk-button-default" type="button" data-status="CANCELLED">Cancel booking</button>`);
+      actions.push(`<button class="uk-button uk-button-default uk-width-1-1" type="button" data-status="COMPLETED">Mark completed</button>`);
+      actions.push(`<button class="uk-button uk-button-default uk-width-1-1" type="button" data-status="CANCELLED">Cancel booking</button>`);
     }
     const who = row.secondName ? row.customerName + " and " + row.secondName : row.customerName;
     document.getElementById("visit-body").innerHTML = `
@@ -48,7 +73,7 @@
         <dt>Note</dt><dd>${U.escapeHtml(row.note || "—")}</dd>
       </dl>
       <div id="visit-alert"></div>
-      <div class="uk-margin-small-top">${actions.join(" ")}</div>`;
+      <div class="app-visit-actions uk-margin-small-top">${actions.join("")}</div>`;
     document.getElementById("visit-body").querySelectorAll("[data-status]").forEach((button) => {
       button.addEventListener("click", async () => {
         if (button.getAttribute("data-status") === "CANCELLED") {
@@ -59,10 +84,16 @@
         }
         button.disabled = true;
         try {
-          await U.api(`/admin/bookings/${id}/status`, { method: "POST", body: { status: button.getAttribute("data-status") } });
-          UIkit.modal("#visit").hide();
-          U.notify("Booking updated.");
+          const next = button.getAttribute("data-status");
+          await U.api(`/admin/bookings/${id}/status`, { method: "POST", body: { status: next } });
           await load();
+          if (next === "CONFIRMED") {
+            U.notify("Booking confirmed.");
+            await openVisit(id);
+          } else {
+            UIkit.modal("#visit").hide();
+            U.notify("Booking updated.");
+          }
         } catch (error) {
           button.disabled = false;
           U.showMessage(document.getElementById("visit-alert"), "danger", error.message);

@@ -100,6 +100,9 @@
     return `<span class="uk-text-meta app-icon-row">${stars(average)} ${average} · ${count} ${word}</span>`;
   }
 
+  const advanceInr = 200;
+  const payee = "UMADEVI VADLAMANI";
+
   function notify(message) {
     if (window.UIkit) UIkit.notification({ message, status: "primary", pos: "top-center", timeout: 2200 });
   }
@@ -118,6 +121,8 @@
     packageIcon,
     stars,
     ratingLine,
+    advanceInr,
+    payee,
     notify,
   };
 })();

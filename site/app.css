@@ -196,6 +196,10 @@ a:hover {
   margin-right: auto;
 }
 
+.uk-container {
+  box-sizing: border-box;
+}
+
 .uk-card-default {
   background: var(--card);
   border: 1px solid var(--line);
@@ -498,6 +502,25 @@ a:hover {
   gap: 8px 18px;
 }
 
+.app-pay {
+  margin: 8px 0 0;
+  text-align: center;
+}
+
+.app-pay img {
+  width: min(168px, 46vw);
+  height: auto;
+  border-radius: 12px;
+  background: #000;
+}
+
+.app-pay figcaption {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
 .app-pre {
   white-space: pre-line;
 }
@@ -640,6 +663,12 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: var(--muted);
+}
+
+.app-visit-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .app-bookings {

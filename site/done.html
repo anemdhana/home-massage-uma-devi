@@ -21,9 +21,13 @@
         <h1 class="uk-h3 uk-margin-small-top uk-margin-remove-bottom">Booking received</h1>
         <p class="uk-h2 uk-margin-small" id="reference"></p>
         <span class="uk-label" id="status">Held</span>
-        <div class="uk-alert uk-alert-success app-alert uk-text-left uk-margin-small-top" uk-alert>
-          <p class="app-alert-line"><span uk-icon="icon: check; ratio: 0.85"></span><span>This time is held. Uma confirms it before she comes.</span></p>
+        <div class="uk-alert uk-alert-warning app-alert uk-text-left uk-margin-small-top" uk-alert>
+          <p class="app-alert-line"><span uk-icon="icon: warning; ratio: 0.85"></span><span id="pay-note">Pay the advance on PhonePe. Put this reference in the note.</span></p>
         </div>
+        <figure class="app-pay">
+          <img src="/phonepe.jpeg" alt="PhonePe QR for UMADEVI VADLAMANI" width="720" height="1280">
+          <figcaption>UMADEVI VADLAMANI · Scan in the PhonePe app</figcaption>
+        </figure>
         <p class="uk-text-meta" id="when"></p>
         <a class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-top" id="whatsapp" href="#">Send on WhatsApp</a>
         <a class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top" href="/">Back to home</a>
@@ -41,7 +45,9 @@
       const U = window.Uma;
       document.getElementById("reference").textContent = saved.reference;
       document.getElementById("when").textContent = U.dateLabel(saved.date) + ", " + U.clockLabel(saved.start) + " – " + U.clockLabel(saved.end) + " · " + saved.locality;
-      const text = "Booking " + saved.reference + "\n" + saved.packageName + "\n" + U.dateLabel(saved.date) + ", " + U.clockLabel(saved.start) + " – " + U.clockLabel(saved.end) + "\n" + saved.locality;
+      const advance = Math.min(U.advanceInr, saved.priceInr || U.advanceInr);
+      document.getElementById("pay-note").textContent = "Pay " + U.money(advance) + " advance on PhonePe. Put " + saved.reference + " in the note. Uma confirms after she sees it.";
+      const text = "Booking " + saved.reference + "\n" + saved.packageName + "\n" + U.dateLabel(saved.date) + ", " + U.clockLabel(saved.start) + " – " + U.clockLabel(saved.end) + "\n" + saved.locality + "\nAdvance " + U.money(advance) + " on PhonePe to " + U.payee;
       document.getElementById("whatsapp").href = "https://wa.me/919959923543?text=" + encodeURIComponent(text);
       document.getElementById("review-link").href = "/review?reference=" + encodeURIComponent(saved.reference);
       U.notify("Booking received.");

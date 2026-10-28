@@ -241,8 +241,13 @@
     document.getElementById("review-who").textContent = pack.audience === "couple" ? value.customerName + "\n" + value.secondName : value.customerName;
     document.getElementById("review-mobile").textContent = value.mobile.slice(0, 5) + " " + value.mobile.slice(5);
     document.getElementById("review-price").textContent = U.money(pack.priceInr);
+    const advance = Math.min(U.advanceInr, pack.priceInr);
+    const later = pack.priceInr - advance;
+    document.getElementById("review-pay").textContent = later > 0
+      ? U.money(advance) + " on PhonePe now. " + U.money(later) + " at the visit."
+      : U.money(advance) + " on PhonePe now.";
     document.getElementById("couple-note").hidden = !(pack.audience === "couple" && pack.includes.length === 0);
-    document.getElementById("hold-line").textContent = pack.name + " · " + U.dateLabel(state.date) + " · " + U.clockLabel(state.start) + "–" + U.clockLabel(end);
+    document.getElementById("hold-line").textContent = pack.name + " · " + U.dateLabel(state.date) + " · " + U.clockLabel(state.start) + "–" + U.clockLabel(end) + ". Pay " + U.money(Math.min(U.advanceInr, pack.priceInr)) + " advance on PhonePe.";
   }
 
   async function forward() {
