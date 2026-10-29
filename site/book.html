@@ -12,7 +12,7 @@
   <header class="app-header">
     <div class="uk-container app-header-inner">
       <nav class="uk-navbar" uk-navbar="mode: click">
-        <div class="uk-navbar-left"><a class="app-brand" href="/about"><span class="app-logo"><img src="/aura-logo.png" alt=""></span><span class="app-brand-copy"><span class="app-brand-name">Aura wellness</span><span class="app-brand-caption">for body and soul</span></span></a></div>
+        <div class="uk-navbar-left"><a class="app-brand" href="/about"><span class="app-logo"><img src="/aura-logo.png" alt=""></span><span class="app-brand-copy"><span class="app-brand-name">Aura wellness</span><span class="app-brand-caption">Wellness at your doorstep</span></span></a></div>
         <div class="uk-navbar-right">
           <ul class="uk-navbar-nav uk-visible@m">
             <li><a href="/">Home</a></li>
@@ -40,17 +40,17 @@
   <section class="uk-section uk-section-small">
     <div class="uk-container app-column app-narrow">
       <div class="app-stepbar">
-        <button class="uk-button uk-button-text uk-invisible" id="step-back" type="button"><span uk-icon="icon: chevron-left; ratio: 0.9"></span> Back</button>
+        <button class="app-back uk-invisible" id="step-back" type="button"><span uk-icon="icon: chevron-left; ratio: 0.75"></span> Back</button>
         <p class="uk-text-small uk-text-center uk-margin-remove" id="step-line">Step 1 of 5 · Package</p>
         <span aria-hidden="true"></span>
       </div>
-      <progress class="uk-progress uk-margin-small-bottom" id="step-progress" value="1" max="5" aria-label="Step 1 of 5"></progress>
+      <progress class="uk-progress" id="step-progress" value="1" max="5" aria-label="Step 1 of 5"></progress>
       <div id="summary" class="uk-alert uk-alert-primary app-summary" hidden></div>
       <div id="step-alert"></div>
       <div class="uk-card uk-card-default uk-card-body">
         <ul class="uk-switcher" id="book-steps">
           <li class="uk-active">
-            <ul class="uk-subnav uk-subnav-pill uk-margin-remove-top uk-margin-small-bottom">
+            <ul class="uk-subnav uk-subnav-pill uk-margin-remove-top app-audience">
               <li class="uk-active"><a href="#" data-audience="individual">Individual</a></li>
               <li><a href="#" data-audience="couple">Couple</a></li>
             </ul>

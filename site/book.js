@@ -29,7 +29,7 @@
   function show(step) {
     state.step = step;
     document.querySelectorAll("#book-steps > li").forEach((item, index) => item.classList.toggle("uk-active", index === step));
-    document.getElementById("step-line").textContent = "Step " + (step + 1) + " of 5 · " + names[step];
+    document.getElementById("step-line").innerHTML = "Step " + (step + 1) + " of 5 · <strong>" + names[step] + "</strong>";
     const bar = document.getElementById("step-progress");
     bar.value = step + 1;
     bar.setAttribute("aria-label", "Step " + (step + 1) + " of 5");
@@ -292,7 +292,7 @@
     document.getElementById("card-next").style.display = "none";
     document.getElementById("sticky-next").style.display = "none";
     document.getElementById("step-back").classList.add("uk-invisible");
-    document.getElementById("step-line").textContent = "Step 5 of 5 · Send to Uma";
+    document.getElementById("step-line").innerHTML = "Step 5 of 5 · <strong>Send to Uma</strong>";
     if (window.UIkit) UIkit.update(document.getElementById("send-uma"));
   }
 
@@ -401,8 +401,10 @@
     state.packages = res.data;
     state.averages = new Map((reviews.data.averages || []).map((row) => [row.packageId, row]));
     const query = state.packages.find((pack) => pack.id === state.packageId && pack.bookable);
+    const audienceQuery = new URLSearchParams(location.search).get("audience");
     if (!query) state.packageId = null;
     else state.audience = query.audience;
+    if (!query && (audienceQuery === "individual" || audienceQuery === "couple")) state.audience = audienceQuery;
     document.querySelectorAll("[data-audience]").forEach((link) => {
       link.parentElement.classList.toggle("uk-active", link.getAttribute("data-audience") === state.audience);
     });

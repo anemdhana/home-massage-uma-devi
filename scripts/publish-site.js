@@ -27,6 +27,7 @@ for (const name of ["app.css", "icons.js", "ui.js", "home.js", "book.js", "uma.j
 cpSync(path.join(site, "vendor"), path.join(out, "vendor"), { recursive: true });
 cpSync(path.join(site, "uma-devi.png"), path.join(out, "uma-devi.png"));
 cpSync(path.join(site, "aura-logo.png"), path.join(out, "aura-logo.png"));
+cpSync(path.join(site, "home-hero.jpg"), path.join(out, "home-hero.jpg"));
 cpSync(path.join(site, "phonepe.jpeg"), path.join(out, "phonepe.jpeg"));
 for (const [from, to] of pages) {
   const dest = path.join(out, to);
